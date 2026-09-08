@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cream text-ink antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern", "liga";
+    overflow-x: hidden;
+  }
+  ::selection {
+    @apply bg-gold-500 text-brand-950;
+  }
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f7f3ec;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #c4a05f;
+    border: 3px solid #f7f3ec;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #a8854a;
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-[88rem] px-5 sm:px-8 lg:px-12;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-3 font-sans text-[11px] font-semibold uppercase tracking-widest3 text-gold-600;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply inline-block h-px w-8 bg-gold-500;
+  }
+  .h-display {
+    @apply font-display text-[2.6rem] font-light leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl;
+  }
+  .h-section {
+    @apply font-display text-3xl font-light leading-[1.12] tracking-tight sm:text-4xl lg:text-5xl;
+  }
+  .h-display em,
+  .h-section em {
+    @apply font-normal italic text-gold-600;
+  }
+
+  /* Oversized display type used across the site */
+  .text-mega {
+    @apply font-display font-light leading-[0.92] tracking-tight text-[clamp(3rem,9vw,8.5rem)];
+  }
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px rgb(196 160 95 / 0.55);
+  }
+
+  .link-under {
+    @apply relative inline-block;
+  }
+  .link-under::after {
+    content: "";
+    @apply absolute -bottom-0.5 left-0 h-px w-full origin-bottom-right scale-x-0 bg-current transition-transform duration-300 ease-out;
+  }
+  .link-under:hover::after,
+  .link-under:focus-visible::after {
+    @apply origin-bottom-left scale-x-100;
+  }
+
+  /* Primary action — gold sweep fills from the left on hover */
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-none px-8 py-4 text-[11px] font-semibold uppercase tracking-widest3 transition-all duration-300;
+  }
+  .btn > * {
+    @apply relative z-10;
+  }
+  .btn-primary {
+    @apply btn bg-brand-950 text-cream hover:-translate-y-0.5 hover:shadow-soft;
+  }
+  .btn-primary::after {
+    content: "";
+    @apply absolute inset-0 translate-x-[-101%] bg-gold-500 transition-transform duration-500 ease-out;
+  }
+  .btn-primary:hover::after {
+    @apply translate-x-0;
+  }
+  .btn-primary:hover {
+    color: #191510;
+  }
+  .btn-gold {
+    @apply btn bg-gold-500 text-brand-950 hover:-translate-y-0.5 hover:shadow-soft;
+  }
+  .btn-gold:hover {
+    background-color: #e6d3ab;
+  }
+  .btn-outline {
+    @apply btn border border-brand-400/70 bg-transparent text-ink hover:-translate-y-0.5 hover:border-brand-900 hover:text-brand-900;
+  }
+  .btn-dark {
+    @apply btn bg-ink text-cream hover:-translate-y-0.5 hover:bg-brand-900;
+  }
+  .glass {
+    @apply bg-white/80 backdrop-blur-xl;
+  }
+  .hairline {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-gold-500/50 to-transparent;
+  }
+  .serif {
+    @apply font-display;
+  }
+
+  .v-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  /* Ornamental diamond divider */
+  .ornament {
+    @apply flex items-center justify-center gap-4;
+  }
+  .ornament::before,
+  .ornament::after {
+    content: "";
+    @apply block h-px w-14 bg-gold-500/60;
+  }
+
+  /* Ghost section numeral */
+  .ghost-num {
+    @apply pointer-events-none absolute -top-6 right-0 select-none font-display text-[7rem] font-light leading-none text-gold-500/15 lg:text-[11rem];
+  }
+
+  /* Film grain overlay */
+  .grain::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Ken Burns subtle breathing on imagery */
+  .img-kenburns {
+    animation: kenburns 24s ease-in-out infinite;
+  }
+
+  /* Image grade — warm editorial tone for mixed-source photos */
+  .img-grade {
+    filter: sepia(0.12) saturate(0.92) contrast(1.02) brightness(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
